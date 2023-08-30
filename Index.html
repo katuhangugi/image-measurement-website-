@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="index.css">
+  <title>Image Measurement Tool</title>
+</head>
+<body>
+  <h1>Image Measurement Tool</h1>
+  <h2>Select an image to measure</h2>
+
+  <input type="file" id="imageInput">
+  <img id="uploadedImage" alt="Uploaded Image">
+  <div id="measurementTool">
+    <canvas id="imageCanvas"></canvas>
+    <button id="measureButton">Measure</button>
+    <button id="clearButton">Clear</button>
+    <button id="saveButton">Save</button>
+  </div>
+  <div id="measurementLabel">
+    <p id="measurementLabelText"></p>
+    <button id="clearButton">Clear</button>
+    <button id="saveButton">Save</button>
+    <button id="cancelButton">Cancel</button>
+    <button id="closeButton">Close</button>
+    <button id="helpButton">Help</button>
+  </div>
+  <script src="script.js"></script>
+  <script src="index.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="<KEY>" crossorigin="anonymous"></script>
+
+<script>
+   
+    async function saveMeasurementData(width, imageUrl) {
+      const response = await fetch('/api/measurements', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ width, imageUrl })
+      });
+      const data = await response.json();
+      console.log(data);
+    }
+  
+    async function getMeasurementData() {
+      const response = await fetch('/api/measurements');
+      const data = await response.json();
+      console.log(data);
+    }
+  </script>
+  
+</body>
+</html>
